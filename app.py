@@ -1,33 +1,30 @@
 import streamlit as st
-import base64
+from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
-from PIL import Image
 
 # --- PAGE SETUP ---
-st.set_page_config(page_title="DLS 26 Next-Gen Card Creator", page_icon="⚽", layout="centered")
-
-# --- STYLING THE USER INTERFACE ---
-st.markdown("""
-    <style>
-    .main { background-color: #0b0f19; color: #ffffff; }
-    h1 { text-align: center; font-family: 'Arial Black', sans-serif; color: #00ffcc; letter-spacing: 2px; }
-    p { text-align: center; color: #8a99ad; }
-    div.stSlider > div > div > div > div { background-color: #00ffcc !important; }
-    </style>
-""", unsafe_allow_html=True)
-
+st.set_page_config(page_title="DLS 26 Premium Card Creator", page_icon="⚽", layout="centered")
 st.title("⚽ NEXT-GEN DLS 26 CREATOR")
-st.write("Futuristic ultra-modern card engine optimized for viral social media content.")
+st.write("Design high-fidelity custom neon shield cards ready for TikTok trends!")
 
-# --- USER CONTROLS ---
-st.header("👤 Customize Attributes")
+# --- MAIN SCREEN CONTROLS ---
+st.header("👤 Player Customization")
 player_name = st.text_input("Player Name", "BECKHAM")
-card_type = st.selectbox("Card Tier Style", ["Legendary Gold Neon", "Cyberpunk Blue Glow", "Carbon Stealth Grey"])
+card_type = st.selectbox("Card Tier Style", ["Legendary Neon Gold", "Cyberpunk Electric Blue", "Carbon Stealth Grey"])
 player_position = st.selectbox("Field Position", ["ST", "CF", "LW", "RW", "CM", "CB", "GK"])
 
-uploaded_file = st.file_uploader("📸 Upload Player Face (Selfie or Pro)", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("📸 Upload Face Photo (Selfie or Pro)", type=["jpg", "jpeg", "png"])
 
-# Multi-column slider structure for smooth mobile scrolling
+# Modern High-End Color Palette Themes
+theme_colors = {
+    "Legendary Neon Gold": {"border": "#FFD700", "bg_dark": "#1A1400", "bg_light": "#4D3D00", "text": "#FFD700", "panel": "#0A0800"},
+    "Cyberpunk Electric Blue": {"border": "#00E5FF", "bg_dark": "#001326", "bg_light": "#003366", "text": "#00E5FF", "panel": "#000A14"},
+    "Carbon Stealth Grey": {"border": "#FFFFFF", "bg_dark": "#1A1A1A", "bg_light": "#333333", "text": "#FFFFFF", "panel": "#0D0D0D"}
+}
+
+current_theme = theme_colors[card_type]
+
+st.header("📊 Attributes (Max 99)")
 col1, col2 = st.columns(2)
 with col1:
     speed = st.slider("Speed (SPE)", 1, 99, 95)
@@ -42,103 +39,86 @@ with col2:
 
 overall_rating = int((speed + acceleration + control + passing + shooting) / 5)
 
-# --- MODERN THEME STYLE ENGINE ---
-theme_styles = {
-    "Legendary Gold Neon": {
-        "border": "linear-gradient(135deg, #ffd700, #ff8c00)", "glow": "0 0 25px rgba(255, 215, 0, 0.6)",
-        "card_bg": "linear-gradient(180deg, rgba(40,30,0,0.95) 0%, rgba(15,10,0,0.98) 100%)", "text": "#ffd700"
-    },
-    "Cyberpunk Blue Glow": {
-        "border": "linear-gradient(135deg, #00bfff, #0022ff)", "glow": "0 0 25px rgba(0, 191, 255, 0.6)",
-        "card_bg": "linear-gradient(180deg, rgba(0,20,40,0.95) 0%, rgba(0,5,15,0.98) 100%)", "text": "#00bfff"
-    },
-    "Carbon Stealth Grey": {
-        "border": "linear-gradient(135deg, #8e9eab, #eef2f3)", "glow": "0 0 25px rgba(255, 255, 255, 0.2)",
-        "card_bg": "linear-gradient(180deg, rgba(28,28,28,0.95) 0%, rgba(10,10,10,0.98) 100%)", "text": "#ffffff"
-    }
-}
+# --- MODERN GEOMETRIC SHIELD GENERATOR ---
+def generate_modern_card(face_image):
+    # Create main crisp canvas block (400 width x 540 height)
+    card = Image.new("RGB", (400, 540), color=current_theme["bg_dark"])
+    draw = ImageDraw.Draw(card)
+    
+    # 1. Draw overlapping modern polygonal gradient shield structures
+    outer_shield = [(30, 20), (370, 20), (390, 420), (200, 520), (10, 420)]
+    inner_shield = [(36, 26), (364, 26), (382, 414), (200, 510), (18, 414)]
+    shimmer_top = [(36, 26), (364, 26), (374, 240), (26, 240)]
+    
+    draw.polygon(outer_shield, fill=current_theme["border"])
+    draw.polygon(inner_shield, fill=current_theme["bg_dark"])
+    draw.polygon(shimmer_top, fill=current_theme["bg_light"]) # Light reflection effect on upper half
+    
+    # 2. Paste User Face Photo into a stylized right-justified frame window
+    photo_poly = [(180, 80), (350, 80), (365, 290), (165, 290)]
+    if face_image is not None:
+        try:
+            user_img = Image.open(face_image).convert("RGB")
+            user_img = user_img.resize((180, 210))
+            card.paste(user_img, (180, 80))
+        except Exception:
+            draw.polygon(photo_poly, fill=current_theme["panel"])
+    else:
+        draw.polygon(photo_poly, fill=current_theme["panel"])
+        
+    # 3. Draw Matte Dark Bottom Stats Container panel box
+    stats_container = [(40, 320), (360, 320), (372, 400), (200, 495), (28, 400)]
+    draw.polygon(stats_container, fill=current_theme["panel"])
+    
+    # 4. Draw Position Badge tag frame
+    draw.rectangle([(45, 255), (105, 285)], fill=current_theme["border"])
+    
+    # Text rendering engine routines (safe system fonts mapping)
+    try:
+        f_style = ImageFont.load_default()
+    except Exception:
+        f_style = None
 
-current_theme = theme_styles[card_type]
+    # 5. Overlay Graphic text assets
+    draw.text((45, 45), f"{overall_rating}", fill=current_theme["text"], font=f_style)
+    draw.text((45, 105), "OVR", fill="#8a99ad", font=f_style)
+    
+    # Render selected player positions inside tag
+    draw.text((55, 260), player_position, fill="#000000", font=f_style)
+    
+    # Render Player Name Label cleanly centered across line break paths
+    draw.text((45, 290), player_name.upper(), fill="#FFFFFF", font=f_style)
+    
+    # Display 8 attributes in parallel grid strings inside base matte container panel
+    stat_y = 335
+    col1_strings = [f"SPE  {speed}", f"ACC  {acceleration}", f"STA  {stamina}", f"CON  {control}"]
+    for entry in col1_strings:
+        draw.text((55, stat_y), entry, fill="#FFFFFF", font=f_style)
+        stat_y += 32
+        
+    stat_y = 335
+    col2_strings = [f"STR  {strength}", f"TAC  {tackling}", f"PAS  {passing}", f"SHO  {shooting}"]
+    for entry in col2_strings:
+        draw.text((225, stat_y), entry, fill="#FFFFFF", font=f_style)
+        stat_y += 32
+        
+    return card
 
-# Convert uploaded image to string format so it can load smoothly inside the design frame
-img_base64 = ""
-if uploaded_file is not None:
-    bytes_data = uploaded_file.getvalue()
-    img_base64 = f"data:image/png;base64,{base64.b64encode(bytes_data).decode()}"
-else:
-    # High-tech glowing placeholder if empty
-    img_base64 = "https://unsplash.com"
+# --- LIVE INTERFACE RENDERING ENGINE ---
+st.header("🖼️ Your Live DLS 26 Card")
+final_card_image = generate_modern_card(uploaded_file)
+st.image(final_card_image, caption="Polished Neon Shield Asset", use_container_width=True)
 
-# --- THE ADVANCED HIGH-TECH HTML/CSS IMAGE DESIGN ---
-html_card_layout = f"""
-<div style="display: flex; justify-content: center; padding: 20px; background-color: #0b0f19;">
-    <div style="
-        width: 320px; height: 480px;
-        background: {current_theme['card_bg']};
-        border-radius: 24px;
-        padding: 4px;
-        background-origin: border-box;
-        background-image: {current_theme['border']};
-        box-shadow: {current_theme['glow']};
-        position: relative;
-        font-family: 'Segoe UI', Roboto, sans-serif;
-        overflow: hidden;
-    ">
-        <!-- Top Stats Row -->
-        <div style="position: absolute; top: 25px; left: 25px; display: flex; flex-direction: column; align-items: center;">
-            <span style="font-size: 54px; font-weight: 900; color: {current_theme['text']}; line-height: 1; text-shadow: 0 0 10px rgba(0,0,0,0.5);">{overall_rating}</span>
-            <span style="font-size: 14px; font-weight: 700; color: #8a99ad; margin-top: 4px; letter-spacing: 1px;">OVR</span>
-            <div style="background: {current_theme['border']}; color: #000; font-size: 12px; font-weight: 900; padding: 3px 10px; border-radius: 6px; margin-top: 12px;">
-                {player_position}
-            </div>
-        </div>
+# --- DIRECT MEMORY DOWNLOAD TRIGGERS ---
+buf = BytesIO()
+final_card_image.save(buf, format="PNG")
+byte_im = buf.getvalue()
 
-        <!-- Futuristic Glow Image Frame -->
-        <div style="
-            position: absolute; top: 25px; right: 25px;
-            width: 140px; height: 160px;
-            border-radius: 16px;
-            background-image: url('{img_base64}');
-            background-size: cover;
-            background-position: center;
-            border: 2px solid rgba(255,255,255,0.1);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
-        "></div>
+st.download_button(
+    label="📥 Download Card Image",
+    data=byte_im,
+    file_name=f"dls26_{player_name.lower().replace(' ', '_')}.png",
+    mime="image/png"
+)
 
-        <!-- Name Display Panel -->
-        <div style="position: absolute; top: 215px; width: 100%; text-align: center;">
-            <h2 style="margin: 0; font-size: 26px; font-weight: 900; color: #ffffff; letter-spacing: 1.5px; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,0.8); font-family: 'Impact', sans-serif;">
-                {player_name}
-            </h2>
-        </div>
-
-        <!-- Modern Technical Attributes Grid -->
-        <div style="
-            position: absolute; bottom: 25px; left: 15px; right: 15px;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 15px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-        ">
-            <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700;"><span style="color:#8a99ad;">SPE</span><span style="color:#00ffcc;">{speed}</span></div>
-            <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700;"><span style="color:#8a99ad;">STR</span><span style="color:#00ffcc;">{strength}</span></div>
-            <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700;"><span style="color:#8a99ad;">ACC</span><span style="color:#00ffcc;">{acceleration}</span></div>
-            <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700;"><span style="color:#8a99ad;">TAC</span><span style="color:#00ffcc;">{tackling}</span></div>
-            <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700;"><span style="color:#8a99ad;">STA</span><span style="color:#00ffcc;">{stamina}</span></div>
-            <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700;"><span style="color:#8a99ad;">PAS</span><span style="color:#00ffcc;">{passing}</span></div>
-            <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700;"><span style="color:#8a99ad;">CON</span><span style="color:#00ffcc;">{control}</span></div>
-            <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700;"><span style="color:#8a99ad;">SHO</span><span style="color:#00ffcc;">{shooting}</span></div>
-        </div>
-    </div>
-</div>
-"""
-
-# Render the beautiful next-gen card interface live
-st.markdown(html_card_layout, unsafe_allow_html=True)
-
-st.info("💡 Pro-Tip: To save this new high-definition design layout on your mobile phone, simply press down on the card and tap 'Save Image' or take a quick screenshot to post directly to TikTok!")
-st.markdown("<br><hr><p style='font-size: 11px;'>🛑 LEGAL DISCLAIMER: Unofficial community fan utility. Not affiliated with First Touch Games.</p>", unsafe_allow_html=True)
+st.markdown("<br><hr><p style='text-align: center; color: gray; font-size: 11px;'>🛑 DISCLAIMER: Unofficial fan tool. Not associated with First Touch Games.</p>", unsafe_allow_html=True)
