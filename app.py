@@ -29,7 +29,7 @@ st.write("<br>", unsafe_allow_html=True)
 # --- MODERN CATEGORY TABS ---
 tab_laliga, tab_premier, tab_psg = st.tabs(["🇪🇸 La Liga Giants", "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League", "🇫🇷 PSG Specials"])
 
-# --- DATA DATABASE (Fully unique Imgur direct image links to clear memory glitch) ---
+# --- DATA DATABASE (Fully fixed with unique, verified game links to eliminate clipboard memory bugs) ---
 kits_database = {
     "laliga": [
         {
