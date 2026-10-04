@@ -86,7 +86,7 @@ with tab_premier:
         st.write("<br><br>", unsafe_allow_html=True)
 
 # --- RENDER TAB 3: SPECIAL UCL CONCEPTS ---
-with tab_concepts:
+with tab_ucl_special:
     for kit in kits_database["concepts"]:
         st.markdown(f'<div class="kit-card"><div class="kit-title">{kit["name"]}</div><div class="kit-subtitle">{kit["desc"]}</div></div>', unsafe_allow_html=True)
         st.image(kit["img"], use_container_width=True)
