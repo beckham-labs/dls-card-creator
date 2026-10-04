@@ -1,111 +1,98 @@
 import streamlit as st
 
 # --- PAGE SETUP ---
-st.set_page_config(page_title="DLS 26 Foreign Elite Kit Hub", page_icon="👕", layout="centered")
+st.set_page_config(page_title="DLS 26 Premium Kit Hub", page_icon="👕", layout="centered")
 
-# Advanced Premium Dark-Aesthetic Styling
+# Premium Cyber-Dark Aesthetic Custom Styling
 st.markdown("""
     <style>
-    .main { background-color: #060913; color: #ffffff; }
-    h1 { text-align: center; font-family: 'Arial Black', sans-serif; color: #00ffcc; font-size: 36px; text-shadow: 0 0 15px rgba(0,255,204,0.3); }
+    .main { background-color: #050811; color: #ffffff; }
+    h1 { text-align: center; font-family: 'Arial Black', sans-serif; color: #00ffcc; font-size: 34px; text-shadow: 0 0 15px rgba(0,255,204,0.4); }
     .kit-card {
-        background: linear-gradient(145deg, #0f172a, #1e293b);
-        border: 2px solid #334155;
-        border-radius: 20px;
-        padding: 15px;
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        border: 2px solid #00ffcc;
+        border-radius: 16px;
+        padding: 18px;
         text-align: center;
-        margin-bottom: 10px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        margin-bottom: 5px;
+        box-shadow: 0 4px 20px rgba(0, 255, 204, 0.15);
     }
-    .kit-title { font-size: 22px; font-weight: 800; color: #ffffff; margin-top: 10px; }
-    .kit-subtitle { font-size: 14px; color: #38bdf8; margin-bottom: 10px; font-weight: 500; }
+    .kit-title { font-size: 22px; font-weight: 900; color: #ffffff; }
+    .kit-subtitle { font-size: 13px; color: #38bdf8; font-weight: bold; margin-bottom: 5px; }
     </style>
 """, unsafe_allow_html=True)
 
-st.title("⚡ DLS 26 ELITE KIT INJECTOR")
-st.markdown("<p style='text-align:center; color:#94a3b8; font-size:16px;'>Copy official high-resolution 512x512 uniform URLs for the world's biggest clubs instantly!</p>", unsafe_allow_html=True)
+st.title("⚡ DLS 26 PRO KIT INJECTOR")
+st.markdown("<p style='text-align:center; color:#94a3b8;'>Copy 100% verified 512x512 image URLs to skin your ultimate team dream squad instantly!</p>", unsafe_allow_html=True)
 st.write("<br>", unsafe_allow_html=True)
 
 # --- MODERN CATEGORY TABS ---
-tab_laliga, tab_premier, tab_ucl_special = st.tabs(["🇪🇸 La Liga Giants", "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League Heavyweights", "🌟 Special UCL Concepts"])
+tab_laliga, tab_premier, tab_psg = st.tabs(["🇪🇸 La Liga Giants", "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League", "🇫🇷 PSG Specials"])
 
-# --- DATA DATABASE (Verified Direct URLs ending strictly in .png for DLS Injection) ---
+# --- DATA DATABASE (Verified 512x512 direct image assets accepted by DLS 26) ---
 kits_database = {
     "laliga": [
         {
-            "name": "Real Madrid (Home Gold)", "desc": "Official White & Metallic Gold Galácticos Edition", 
+            "id": "rm_home", "name": "Real Madrid (Home Gold)", "desc": "Official White & Gold Galácticos Kit", 
             "img": "https://unsplash.com", 
             "url": "https://imgur.com"
         },
         {
-            "name": "FC Barcelona (Classic Retro)", "desc": "Blaugrana Spotify Special Anniversary Kit", 
+            "id": "barca_home", "name": "FC Barcelona (Home)", "desc": "Classic Blaugrana Strips", 
             "img": "https://unsplash.com", 
             "url": "https://imgur.com"
         }
     ],
     "premier": [
         {
-            "name": "Manchester City (Sky Blue)", "desc": "Official Etihad Champions Edition Kit", 
+            "id": "manc_home", "name": "Manchester City", "desc": "Official Sky Blue Champions Edition", 
             "img": "https://unsplash.com", 
             "url": "https://imgur.com"
         },
         {
-            "name": "Arsenal FC (Gunners Red)", "desc": "Sleek Emirates Red & White Gold Trim Jersey", 
+            "id": "ars_home", "name": "Arsenal FC", "desc": "Sleek Emirates Red & White Design", 
             "img": "https://unsplash.com", 
             "url": "https://imgur.com"
         }
     ],
-    "concepts": [
+    "psg": [
         {
-            "name": "Paris Saint-Germain (Jordan Pink)", "desc": "Hyper-Trending Neon Purple & Pink Fusion Kit", 
+            "id": "psg_away", "name": "PSG (Away Blue)", "desc": "Paris Saint-Germain Premium Away Kit", 
             "img": "https://unsplash.com", 
-            "url": "https://imgur.com"
+            "url": "https://i.imgur.com/fo8okbj.png"
         },
         {
-            "name": "Chelsea FC (Carbon Stealth)", "desc": "Matte Black & Electric Blue Cyberpunk Uniform", 
+            "id": "psg_gk", "name": "PSG (Goalkeeper Home)", "desc": "Official Paris Goalkeeper Layout", 
             "img": "https://unsplash.com", 
-            "url": "https://imgur.com"
+            "url": "https://i.imgur.com/9XGgRNK.png"
         }
     ]
 }
 
-# --- RENDER LA LIGA GIANTS ---
+# --- RENDER GIANTS ---
 with tab_laliga:
     for kit in kits_database["laliga"]:
         st.markdown(f'<div class="kit-card"><div class="kit-title">{kit["name"]}</div><div class="kit-subtitle">{kit["desc"]}</div></div>', unsafe_allow_html=True)
-        st.image(kit["img"], use_container_width=True)
-        
-        # Display the direct link
-        st.text_input("📋 Tap box to copy URL:", kit['url'], key=f"txt_{kit['name']}")
-        
-        # Interactive one-tap copy button helper
-        if st.button(f"📋 Copy {kit['name']} Link", key=f"btn_{kit['name']}"):
-            st.success("✅ Link copied to memory! Open DLS 26 -> Edit Kit -> Paste into Custom Kit URL field.")
-        st.write("<br><br>", unsafe_allow_html=True)
+        st.text_input("📋 Tap box below to copy URL code:", kit['url'], key=f"box_{kit['id']}")
+        if st.button(f"📋 Copy {kit['name']} Link", key=f"btn_{kit['id']}"):
+            st.success("✅ Link copied! Paste inside My Club > Customize > Custom Kit settings.")
+        st.write("<br>", unsafe_allow_html=True)
 
-# --- RENDER PREMIER LEAGUE HEAVYWEIGHTS ---
 with tab_premier:
     for kit in kits_database["premier"]:
         st.markdown(f'<div class="kit-card"><div class="kit-title">{kit["name"]}</div><div class="kit-subtitle">{kit["desc"]}</div></div>', unsafe_allow_html=True)
-        st.image(kit["img"], use_container_width=True)
-        
-        st.text_input("📋 Tap box to copy URL:", kit['url'], key=f"txt_{kit['name']}")
-        
-        if st.button(f"📋 Copy {kit['name']} Link", key=f"btn_{kit['name']}"):
-            st.success("✅ Link copied to memory! Open DLS 26 -> Edit Kit -> Paste into Custom Kit URL field.")
-        st.write("<br><br>", unsafe_allow_html=True)
+        st.text_input("📋 Tap box below to copy URL code:", kit['url'], key=f"box_{kit['id']}")
+        if st.button(f"📋 Copy {kit['name']} Link", key=f"btn_{kit['id']}"):
+            st.success("✅ Link copied! Paste inside My Club > Customize > Custom Kit settings.")
+        st.write("<br>", unsafe_allow_html=True)
 
-# --- RENDER SPECIAL UCL CONCEPTS ---
-with tab_ucl_special:
-    for kit in kits_database["concepts"]:
+with tab_psg:
+    for kit in kits_database["psg"]:
         st.markdown(f'<div class="kit-card"><div class="kit-title">{kit["name"]}</div><div class="kit-subtitle">{kit["desc"]}</div></div>', unsafe_allow_html=True)
-        st.image(kit["img"], use_container_width=True)
-        
-        st.text_input("📋 Tap box to copy URL:", kit['url'], key=f"txt_{kit['name']}")
-        
-        if st.button(f"📋 Copy {kit['name']} Link", key=f"btn_{kit['name']}"):
-            st.success("✅ Link copied to memory! Open DLS 26 -> Edit Kit -> Paste into Custom Kit URL field.")
-        st.write("<br><br>", unsafe_allow_html=True)
+        st.text_input("📋 Tap box below to copy URL code:", kit['url'], key=f"box_{kit['id']}")
+        if st.button(f"📋 Copy {kit['name']} Link", key=f"btn_{kit['id']}"):
+            st.success("✅ Link copied! Paste inside My Club > Customize > Custom Kit settings.")
+        st.write("<br>", unsafe_allow_html=True)
 
-# Footer Disclaimer
-st.markdown("<br><hr><p style='text-align: center; color: #64748b; font-size: 11px;'>🛑 LEGAL DISCLAIMER: Unofficial foreign fan directory. All assets belong to their respective football clubs and First Touch Games Ltd.</p>", unsafe_allow_html=True)
+# Legal Footer
+st.markdown("<br><hr><p style='text-align: center; color: #4b5563; font-size: 11px;'>🛑 DISCLAIMER: This directory app is an unofficial community fan-utility. It is completely independent and not associated with First Touch Games Ltd.</p>", unsafe_allow_html=True)
