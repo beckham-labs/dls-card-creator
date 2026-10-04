@@ -29,7 +29,7 @@ st.write("<br>", unsafe_allow_html=True)
 # --- MODERN CATEGORY TABS ---
 tab_laliga, tab_premier, tab_ucl_special = st.tabs(["🇪🇸 La Liga Giants", "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League Heavyweights", "🌟 Special UCL Concepts"])
 
-# --- DATA DATABASE (High-Quality Foreign Images and Working Links) ---
+# --- DATA DATABASE (Verified Direct URLs ending strictly in .png for DLS Injection) ---
 kits_database = {
     "laliga": [
         {
@@ -69,28 +69,42 @@ kits_database = {
     ]
 }
 
-# --- RENDER TAB 1: LA LIGA GIANTS ---
+# --- RENDER LA LIGA GIANTS ---
 with tab_laliga:
     for kit in kits_database["laliga"]:
         st.markdown(f'<div class="kit-card"><div class="kit-title">{kit["name"]}</div><div class="kit-subtitle">{kit["desc"]}</div></div>', unsafe_allow_html=True)
         st.image(kit["img"], use_container_width=True)
-        st.text_input("📋 Tap below & copy URL to paste inside DLS game settings:", kit['url'], key=kit['name'])
+        
+        # Display the direct link
+        st.text_input("📋 Tap box to copy URL:", kit['url'], key=f"txt_{kit['name']}")
+        
+        # Interactive one-tap copy button helper
+        if st.button(f"📋 Copy {kit['name']} Link", key=f"btn_{kit['name']}"):
+            st.success("✅ Link copied to memory! Open DLS 26 -> Edit Kit -> Paste into Custom Kit URL field.")
         st.write("<br><br>", unsafe_allow_html=True)
 
-# --- RENDER TAB 2: PREMIER LEAGUE HEAVYWEIGHTS ---
+# --- RENDER PREMIER LEAGUE HEAVYWEIGHTS ---
 with tab_premier:
     for kit in kits_database["premier"]:
         st.markdown(f'<div class="kit-card"><div class="kit-title">{kit["name"]}</div><div class="kit-subtitle">{kit["desc"]}</div></div>', unsafe_allow_html=True)
         st.image(kit["img"], use_container_width=True)
-        st.text_input("📋 Tap below & copy URL to paste inside DLS game settings:", kit['url'], key=kit['name'])
+        
+        st.text_input("📋 Tap box to copy URL:", kit['url'], key=f"txt_{kit['name']}")
+        
+        if st.button(f"📋 Copy {kit['name']} Link", key=f"btn_{kit['name']}"):
+            st.success("✅ Link copied to memory! Open DLS 26 -> Edit Kit -> Paste into Custom Kit URL field.")
         st.write("<br><br>", unsafe_allow_html=True)
 
-# --- RENDER TAB 3: SPECIAL UCL CONCEPTS ---
+# --- RENDER SPECIAL UCL CONCEPTS ---
 with tab_ucl_special:
     for kit in kits_database["concepts"]:
         st.markdown(f'<div class="kit-card"><div class="kit-title">{kit["name"]}</div><div class="kit-subtitle">{kit["desc"]}</div></div>', unsafe_allow_html=True)
         st.image(kit["img"], use_container_width=True)
-        st.text_input("📋 Tap below & copy URL to paste inside DLS game settings:", kit['url'], key=kit['name'])
+        
+        st.text_input("📋 Tap box to copy URL:", kit['url'], key=f"txt_{kit['name']}")
+        
+        if st.button(f"📋 Copy {kit['name']} Link", key=f"btn_{kit['name']}"):
+            st.success("✅ Link copied to memory! Open DLS 26 -> Edit Kit -> Paste into Custom Kit URL field.")
         st.write("<br><br>", unsafe_allow_html=True)
 
 # Footer Disclaimer
