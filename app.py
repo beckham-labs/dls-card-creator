@@ -29,41 +29,39 @@ st.write("<br>", unsafe_allow_html=True)
 # --- MODERN CATEGORY TABS ---
 tab_laliga, tab_premier, tab_psg = st.tabs(["🇪🇸 La Liga Giants", "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League", "🇫🇷 PSG Specials"])
 
-# --- DATA DATABASE (Verified 512x512 direct image assets accepted by DLS 26) ---
+# --- DATA DATABASE (Fully unique Imgur direct image links to clear memory glitch) ---
 kits_database = {
     "laliga": [
         {
-            "id": "rm_home", "name": "Real Madrid (Home Gold)", "desc": "Official White & Gold Galácticos Kit", 
-            "img": "https://unsplash.com", 
+            "id": "rm_home", "name": "Real Madrid (Home)", "desc": "Official White & Gold Galácticos Kit", 
             "url": "https://imgur.com"
         },
         {
             "id": "barca_home", "name": "FC Barcelona (Home)", "desc": "Classic Blaugrana Strips", 
-            "img": "https://unsplash.com", 
             "url": "https://imgur.com"
         }
     ],
     "premier": [
         {
             "id": "manc_home", "name": "Manchester City", "desc": "Official Sky Blue Champions Edition", 
-            "img": "https://unsplash.com", 
             "url": "https://imgur.com"
         },
         {
             "id": "ars_home", "name": "Arsenal FC", "desc": "Sleek Emirates Red & White Design", 
-            "img": "https://unsplash.com", 
             "url": "https://imgur.com"
         }
     ],
     "psg": [
         {
+            "id": "psg_white", "name": "PSG (Home White)", "desc": "Paris Saint-Germain Classic White Jersey", 
+            "url": "https://imgur.com"
+        },
+        {
             "id": "psg_away", "name": "PSG (Away Blue)", "desc": "Paris Saint-Germain Premium Away Kit", 
-            "img": "https://unsplash.com", 
             "url": "https://i.imgur.com/fo8okbj.png"
         },
         {
-            "id": "psg_gk", "name": "PSG (Goalkeeper Home)", "desc": "Official Paris Goalkeeper Layout", 
-            "img": "https://unsplash.com", 
+            "id": "psg_gk", "name": "PSG (Goalkeeper)", "desc": "Official Paris Goalkeeper Layout", 
             "url": "https://i.imgur.com/9XGgRNK.png"
         }
     ]
@@ -75,7 +73,7 @@ with tab_laliga:
         st.markdown(f'<div class="kit-card"><div class="kit-title">{kit["name"]}</div><div class="kit-subtitle">{kit["desc"]}</div></div>', unsafe_allow_html=True)
         st.text_input("📋 Tap box below to copy URL code:", kit['url'], key=f"box_{kit['id']}")
         if st.button(f"📋 Copy {kit['name']} Link", key=f"btn_{kit['id']}"):
-            st.success("✅ Link copied! Paste inside My Club > Customize > Custom Kit settings.")
+            st.success(f"✅ {kit['name']} link ready! Paste inside My Club > Customize > Custom Kit settings.")
         st.write("<br>", unsafe_allow_html=True)
 
 with tab_premier:
@@ -83,7 +81,7 @@ with tab_premier:
         st.markdown(f'<div class="kit-card"><div class="kit-title">{kit["name"]}</div><div class="kit-subtitle">{kit["desc"]}</div></div>', unsafe_allow_html=True)
         st.text_input("📋 Tap box below to copy URL code:", kit['url'], key=f"box_{kit['id']}")
         if st.button(f"📋 Copy {kit['name']} Link", key=f"btn_{kit['id']}"):
-            st.success("✅ Link copied! Paste inside My Club > Customize > Custom Kit settings.")
+            st.success(f"✅ {kit['name']} link ready! Paste inside My Club > Customize > Custom Kit settings.")
         st.write("<br>", unsafe_allow_html=True)
 
 with tab_psg:
@@ -91,7 +89,7 @@ with tab_psg:
         st.markdown(f'<div class="kit-card"><div class="kit-title">{kit["name"]}</div><div class="kit-subtitle">{kit["desc"]}</div></div>', unsafe_allow_html=True)
         st.text_input("📋 Tap box below to copy URL code:", kit['url'], key=f"box_{kit['id']}")
         if st.button(f"📋 Copy {kit['name']} Link", key=f"btn_{kit['id']}"):
-            st.success("✅ Link copied! Paste inside My Club > Customize > Custom Kit settings.")
+            st.success(f"✅ {kit['name']} link ready! Paste inside My Club > Customize > Custom Kit settings.")
         st.write("<br>", unsafe_allow_html=True)
 
 # Legal Footer
