@@ -1,94 +1,87 @@
 import streamlit as st
+import random
 
 # --- PAGE SETUP ---
-st.set_page_config(page_title="DLS 26 Custom Logo Hub", page_icon="🛡️", layout="centered")
+st.set_page_config(page_title="TikTok Football Caption Generator", page_icon="📱", layout="centered")
 
-# Premium Cyber-Dark Aesthetic Custom Styling
+# Premium Neon Social Grid Custom Styling
 st.markdown("""
     <style>
-    .main { background-color: #050811; color: #ffffff; }
-    h1 { text-align: center; font-family: 'Arial Black', sans-serif; color: #00ffcc; font-size: 34px; text-shadow: 0 0 15px rgba(0,255,204,0.4); }
-    .logo-box {
-        background: linear-gradient(135deg, #0f172a, #1e293b);
-        border: 2px solid #00ffcc;
+    .main { background-color: #090b16; color: #ffffff; }
+    h1 { text-align: center; font-family: 'Arial Black', sans-serif; color: #ff007f; font-size: 32px; text-shadow: 0 0 15px rgba(255,0,127,0.4); }
+    .caption-box {
+        background: linear-gradient(145deg, #111424, #1b1f3b);
+        border: 2px solid #ff007f;
         border-radius: 16px;
         padding: 20px;
-        text-align: center;
-        margin-bottom: 15px;
-        box-shadow: 0 4px 20px rgba(0, 255, 204, 0.15);
+        margin-top: 20px;
+        box-shadow: 0 4px 20px rgba(255, 0, 127, 0.2);
     }
-    .badge-preview {
-        font-family: 'Impact', sans-serif;
-        font-size: 28px;
-        font-weight: bold;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
+    .box-title { font-size: 14px; font-weight: bold; color: #00ffcc; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🛡️ DLS 26 CUSTOM LOGO MAKER")
-st.markdown("<p style='text-align:center; color:#94a3b8;'>Design an elite team crest and generate a live link to inject it directly into DLS 26!</p>", unsafe_allow_html=True)
+st.title("🚀 TIKTOK VIRAL CAPTION GENERATOR")
+st.markdown("<p style='text-align:center; color:#94a3b8; font-size:15px;'>Generate high-hook descriptions and optimized hashtag grids to explode your views!</p>", unsafe_allow_html=True)
 st.write("<br>", unsafe_allow_html=True)
 
-# --- CREATOR INTERFACE CONTROLS ---
-st.header("🎨 Design Your Identity")
-custom_team_name = st.text_input("Enter Your Custom Team Name:", "BECKHAM FC").strip()
-crest_style = st.selectbox("Select Mascot Emblem Template:", ["Glow Dragon Esports", "Neon Panther Strike", "Golden Diamond Crest", "Cyberpunk Phoenix"])
+# --- USER SELECTION CONTROLS ---
+st.header("📝 Video Details")
+video_topic = st.text_input("What is your video about? (e.g. Free-kick goal, Pack opening, Clan war):", "Insane Goal")
+content_style = st.selectbox("Choose Content Mood/Tone:", ["🔥 High Hype & Shock", "😂 Funny / Meme Style", "👑 Pro-Gamer Challenge"])
 
-# Map selected elements to high-quality, pre-hosted direct 512x512 PNG assets
-emblem_database = {
-    "Glow Dragon Esports": {"color": "#ff0055", "link": "https://imgur.com"},
-    "Neon Panther Strike": {"color": "#00ffcc", "link": "https://imgur.com"},
-    "Golden Diamond Crest": {"color": "#ffd700", "link": "https://imgur.com"},
-    "Cyberpunk Phoenix": {"color": "#ff8c00", "link": "https://imgur.com"}
-}
-selected_theme = emblem_database[crest_style]
+st.write("<br>", unsafe_allow_html=True)
 
-st.write("<br><hr>", unsafe_allow_html=True)
+# --- ENGINE LOGIC MATH RESTRUCTURE ---
+# Pre-coded high-performing TikTok hook elements
+hype_hooks = [
+    "Stop scrolling! You won't believe how this ended... 🤯⚽",
+    "Is this the craziest moment of the week? Watch till the end! ⚡🔥",
+    "Rate this out of 10 in the comments right now! 👇😱"
+]
+meme_hooks = [
+    "My script went completely wrong... 😂💀",
+    "Tell me why this always happens to me 😭 algorithm explain this!",
+    "When you try to look pro but the game says NOPE 💀"
+]
+challenge_hooks = [
+    "No shortcuts. Breaking the global leaderboards tonight! 🏆⚙️",
+    "Only 1% of creators can pull off this execution. Challenge starting now! 🧠",
+    "Tag a friend who needs to see this elite setup! 🎮👑"
+]
 
-# --- LIVE PREVIEW WORKSPACE PANEL ---
-st.header("🖼️ Live Badge Preview")
+tags_pool = ["#gaming", "#trending", "#viral", "#football", "#soccer", "#fyp", "#contentcreator"]
+
+# Generate text matrix based on selected criteria
+generated_caption = ""
+if content_style == "🔥 High Hype & Shock":
+    generated_caption = f"{random.choice(hype_hooks)}\n\nPOV: {video_topic}! This went completely viral on stream. Let me know your thoughts below! 👇\n\n"
+elif content_style == "😂 Funny / Meme Style":
+    generated_caption = f"{random.choice(meme_hooks)}\n\nContext: {video_topic}. Absolute comedy central 😭 sound on!\n\n"
+else:
+    generated_caption = f"{random.choice(challenge_hooks)}\n\nObjective accomplished: {video_topic}. The grind continues. ⚡\n\n"
+
+# Append random optimized trending hashtags to clean up block layouts
+selected_tags = random.sample(tags_pool, 4)
+generated_caption += " ".join(selected_tags)
+
+st.write("<hr>", unsafe_allow_html=True)
+
+# --- LIVE OUTPUT PREVIEW PANEL ---
+st.header("📋 Your Optimized Copy-Paste Asset")
+
 st.markdown(f"""
-    <div class="logo-box">
-        <p style='color:#64748b; font-size:12px; font-weight:bold; margin-top:0;'>512x512 HIGH-DEFINITION TEMPLATE</p>
-        <div style="font-size: 80px; margin-bottom: 10px;">🛡️</div>
-        <div class="badge-preview" style="color: {selected_theme['color']}; text-shadow: 0 0 10px {selected_theme['color']}44;">
-            {custom_team_name}
-        </div>
-        <span style="background-color:#050811; padding:4px 10px; border-radius:6px; font-size:12px; border:1px solid #334155; color:#94a3b8;">
-            Style: {crest_style}
-        </span>
+    <div class="caption-box">
+        <div class="box-title">📱 Copy this text directly into your TikTok Upload Window:</div>
+        <br>
     </div>
 """, unsafe_allow_html=True)
 
-# --- INJECTION URL GENERATOR ENGINE ---
-st.header("🔗 Live Game Link Generator")
-st.write("Click generate to build the exact URL file path required by the DLS 26 game settings panel.")
+# Render inside an input text area field box for simple phone one-tap selection
+st.text_area("Your Caption Code Block:", generated_caption, height=150, key="tiktok_final_output_box")
 
-# Process strings cleanly into valid image parameters
-formatted_url_string = f"{selected_theme['link']}?text={custom_team_name.lower().replace(' ', '_')}"
+if st.button("✨ Roll Another Version"):
+    st.rerun()
 
-if st.button("🚀 Generate & Verify DLS 26 Logo URL"):
-    st.success("🎉 LOGO GENERATION SUCCESSFUL!")
-    st.write("Your direct 512x512 transparent PNG image path is live and fully active:")
-    
-    # Render the input box containing the unique link
-    st.text_input("📋 Tap box below to copy direct injection URL:", formatted_url_string, key="dls_final_url")
-    
-    st.markdown("""
-        <div style="background-color:rgba(0,255,204,0.1); border:1px solid #00ffcc; padding:15px; border-radius:10px; margin-top:10px;">
-            <p style='margin:0; color:#00ffcc; font-size:14px; font-weight:bold;'>🎮 Next Game Steps:</p>
-            <ol style='margin-bottom:0; color:#cbd5e1; font-size:13px; padding-left:20px;'>
-                <li>Tap inside the text box above and select <b>Copy</b>.</li>
-                <li>Launch your real <b>Dream League Soccer</b> game app.</li>
-                <li>Navigate to <b>My Club > Customise > Logo > Custom Logo</b>.</li>
-                <li>Paste your link into the field and click confirm to watch your badge apply!</li>
-            </ol>
-        </div>
-    """, unsafe_allow_html=True)
-
-# Legal Footer
-st.markdown("<br><hr><p style='text-align: center; color: #4b5563; font-size: 11px;'>🛑 LEGAL DISCLAIMER: Unofficial fan custom utility. Assets are mock simulations for community evaluation purposes. Not affiliated with First Touch Games Ltd.</p>", unsafe_allow_html=True)
+# Footnote
+st.markdown("<br><hr><p style='text-align: center; color: #4b5563; font-size: 11px;'>⚙️ Unofficial creator utility platform. Optimized for general social text generation metrics.</p>", unsafe_allow_html=True)
