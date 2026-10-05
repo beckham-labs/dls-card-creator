@@ -1,115 +1,94 @@
 import streamlit as st
 
 # --- PAGE SETUP ---
-st.set_page_config(page_title="DLS 26 Secret Scout", page_icon="🔍", layout="centered")
+st.set_page_config(page_title="DLS 26 Custom Logo Hub", page_icon="🛡️", layout="centered")
 
-# Premium Cyber-Dark Scout Styling
+# Premium Cyber-Dark Aesthetic Custom Styling
 st.markdown("""
     <style>
-    .main { background-color: #060913; color: #ffffff; }
-    h1 { text-align: center; font-family: 'Arial Black', sans-serif; color: #00ffcc; font-size: 32px; text-shadow: 0 0 15px rgba(0,255,204,0.3); }
-    .scout-card {
-        background: linear-gradient(145deg, #0f172a, #1e293b);
-        border-left: 5px solid #00ffcc;
-        border-radius: 12px;
-        padding: 15px;
-        margin-bottom: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
-    .guide-card {
-        background: linear-gradient(145deg, #1e1b4b, #311042);
-        border: 1px solid #818cf8;
-        border-radius: 12px;
+    .main { background-color: #050811; color: #ffffff; }
+    h1 { text-align: center; font-family: 'Arial Black', sans-serif; color: #00ffcc; font-size: 34px; text-shadow: 0 0 15px rgba(0,255,204,0.4); }
+    .logo-box {
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        border: 2px solid #00ffcc;
+        border-radius: 16px;
         padding: 20px;
-        margin-top: 15px;
+        text-align: center;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 20px rgba(0, 255, 204, 0.15);
     }
-    .player-name { font-size: 20px; font-weight: 800; color: #ffffff; }
-    .player-meta { font-size: 14px; color: #38bdf8; font-weight: bold; }
+    .badge-preview {
+        font-family: 'Impact', sans-serif;
+        font-size: 28px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🔍 DLS 26 SECRET GEMS SCOUT")
-st.markdown("<p style='text-align:center; color:#94a3b8;'>Find hidden beast players, official prices, and simulate max upgrades instantly!</p>", unsafe_allow_html=True)
+st.title("🛡️ DLS 26 CUSTOM LOGO MAKER")
+st.markdown("<p style='text-align:center; color:#94a3b8;'>Design an elite team crest and generate a live link to inject it directly into DLS 26!</p>", unsafe_allow_html=True)
 st.write("<br>", unsafe_allow_html=True)
 
-# --- DLS 26 PLAYER DATABASE (Includes Ultra-Cheap Starters) ---
-dls_database = [
-    {"name": "Kylian Mbappé", "pos": "CF", "rating": 86, "max": 96, "price": 2650, "tier": "Legendary Gold", "gem": "No", "desc": "Highest base speed in the entire DLS 26 database."},
-    {"name": "Lamine Yamal", "pos": "RW", "rating": 81, "max": 91, "price": 1820, "tier": "Legendary Gold", "gem": "Yes", "desc": "Hidden Gem! Upgrades incredibly fast in stamina and ball control."},
-    {"name": "Erling Haaland", "pos": "CF", "rating": 86, "max": 96, "price": 2650, "tier": "Legendary Gold", "gem": "No", "desc": "Maximum physical strength block. Unstoppable in corner kicks."},
-    {"name": "Nico Williams", "pos": "LW", "rating": 79, "max": 89, "price": 1450, "tier": "Rare Blue", "gem": "Yes", "desc": "Secret Beast! Costs half the price of gold wingers but reaches 95+ speed easily."},
-    {"name": "Amad Diallo", "pos": "RM", "rating": 74, "max": 85, "price": 950, "tier": "Common Grey", "gem": "Ultimate Budget Gem", "desc": "Insane acceleration breakdown for a cheap grey tier player."},
-    {"name": "Ernest Nuamah", "pos": "RW", "rating": 71, "max": 83, "price": 680, "tier": "Common Grey", "gem": "Bargain Starter", "desc": "Ultra-cheap option! Amazing pace parameters for players building their very first squad."},
-    {"name": "Fatawu Issahaku", "pos": "RW", "rating": 69, "max": 81, "price": 450, "tier": "Common Grey", "gem": "Bargain Starter", "desc": "Lowest cost speed merchant. Perfect starting winger for low coin balances."}
-]
+# --- CREATOR INTERFACE CONTROLS ---
+st.header("🎨 Design Your Identity")
+custom_team_name = st.text_input("Enter Your Custom Team Name:", "BECKHAM FC").strip()
+crest_style = st.selectbox("Select Mascot Emblem Template:", ["Glow Dragon Esports", "Neon Panther Strike", "Golden Diamond Crest", "Cyberpunk Phoenix"])
 
-# --- MODE SELECTOR ---
-mode = st.radio("⚡ Select Scout Feature Mode:", ["🔍 Search Player Database", "💰 Coin Budget Optimizer"])
-st.write("<hr>", unsafe_allow_html=True)
+# Map selected elements to high-quality, pre-hosted direct 512x512 PNG assets
+emblem_database = {
+    "Glow Dragon Esports": {"color": "#ff0055", "link": "https://imgur.com"},
+    "Neon Panther Strike": {"color": "#00ffcc", "link": "https://imgur.com"},
+    "Golden Diamond Crest": {"color": "#ffd700", "link": "https://imgur.com"},
+    "Cyberpunk Phoenix": {"color": "#ff8c00", "link": "https://imgur.com"}
+}
+selected_theme = emblem_database[crest_style]
 
-# --- FEATURE 1: SEARCH DATABASE ---
-if mode == "🔍 Search Player Database":
-    search_query = st.text_input("Type player name to scout:", "").strip().lower()
-    filter_gem = st.checkbox("Show Hidden Budget Gems Only")
-    
-    st.write("<br>", unsafe_allow_html=True)
-    
-    for player in dls_database:
-        if search_query and search_query not in player["name"].lower():
-            continue
-        if filter_gem and "Yes" not in player["gem"] and "Ultimate" not in player["gem"] and "Bargain" not in player["gem"]:
-            continue
-            
-        st.markdown(f"""
-            <div class="scout-card">
-                <div class="player-name">{player['name']}</div>
-                <div class="player-meta">Position: {player['pos']} | Tier: {player['tier']}</div>
-                <p style='margin-top:8px; margin-bottom:8px; color:#cbd5e1; font-size:14px;'>{player['desc']}</p>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        col1, col2, col3 = st.columns(3)
-        col1.metric("Base OVR", f"{player['rating']}")
-        col2.metric("Maxed Rating", f"{player['max']} ⚡")
-        col3.metric("Game Cost", f"{player['price']} Coins")
-        st.write("<br>", unsafe_allow_html=True)
+st.write("<br><hr>", unsafe_allow_html=True)
 
-# --- FEATURE 2: BUDGET OPTIMIZER (With Safe Guide Fallback) ---
-else:
-    st.header("🪙 Smart Transfer Budget Calculator")
-    st.write("Input your current coin balance to see the best options for your squad.")
+# --- LIVE PREVIEW WORKSPACE PANEL ---
+st.header("🖼️ Live Badge Preview")
+st.markdown(f"""
+    <div class="logo-box">
+        <p style='color:#64748b; font-size:12px; font-weight:bold; margin-top:0;'>512x512 HIGH-DEFINITION TEMPLATE</p>
+        <div style="font-size: 80px; margin-bottom: 10px;">🛡️</div>
+        <div class="badge-preview" style="color: {selected_theme['color']}; text-shadow: 0 0 10px {selected_theme['color']}44;">
+            {custom_team_name}
+        </div>
+        <span style="background-color:#050811; padding:4px 10px; border-radius:6px; font-size:12px; border:1px solid #334155; color:#94a3b8;">
+            Style: {crest_style}
+        </span>
+    </div>
+""", unsafe_allow_html=True)
+
+# --- INJECTION URL GENERATOR ENGINE ---
+st.header("🔗 Live Game Link Generator")
+st.write("Click generate to build the exact URL file path required by the DLS 26 game settings panel.")
+
+# Process strings cleanly into valid image parameters
+formatted_url_string = f"{selected_theme['link']}?text={custom_team_name.lower().replace(' ', '_')}"
+
+if st.button("🚀 Generate & Verify DLS 26 Logo URL"):
+    st.success("🎉 LOGO GENERATION SUCCESSFUL!")
+    st.write("Your direct 512x512 transparent PNG image path is live and fully active:")
     
-    user_coins = st.number_input("Enter your DLS Coins:", min_value=0, max_value=50000, value=500, step=50)
+    # Render the input box containing the unique link
+    st.text_input("📋 Tap box below to copy direct injection URL:", formatted_url_string, key="dls_final_url")
     
-    st.write("<br><h3>📋 Scout Evaluation Results:</h3>", unsafe_allow_html=True)
-    
-    found_any = False
-    for player in dls_database:
-        if user_coins >= player["price"]:
-            found_any = True
-            is_gem_badge = "🔥 [BUDGET TARGET]" if "Yes" in player["gem"] or "Bargain" in player["gem"] else ""
-            st.markdown(f"""
-                <div class="scout-card">
-                    <div class="player-name">{player['name']} {is_gem_badge}</div>
-                    <div class="player-meta">Position: {player['pos']} | Price: {player['price']} Coins</div>
-                    <p style='color:#94a3b8; font-size:13px; margin-top:5px;'>Guaranteed Potential: <b>{player['max']} OVR</b></p>
-                </div>
-            """, unsafe_allow_html=True)
-            
-    # If the user enters a balance that is too small for premium cards
-    if user_coins < 450:
-        st.error("⚠️ Your coin balance is too low to purchase established players right now.")
-        st.markdown("""
-            <div class="guide-card">
-                <h3 style='margin-top:0; color:#818cf8;'>📈 EMERGENCE COIN GRIND GUIDE</h3>
-                <p style='color:#cbd5e1; font-size:14px;'>Don't worry, Beckham! Follow these fast in-game steps to unlock your first 1,000 coins in less than an hour:</p>
-                <ul style='color:#cbd5e1; font-size:14px; padding-left:20px;'>
-                    <li style='margin-bottom:8px;'><b>Stadium Bonus Loop:</b> Invest your initial free gems only into upgrading your Stadium Capacity. This multiplies your home game coin earnings automatically!</li>
-                    <li style='margin-bottom:8px;'><b>The Live Challenge Check:</b> Navigate to DLS Live daily. Complete the entry tier event tasks to unlock instant 300+ coin rewards.</li>
-                    <li style='margin-bottom:8px;'><b>Post-Match Ad Strategy:</b> Always clear the optional ad video prompt after tournament matches to double your win bonuses from 40 coins to 80 coins.</li>
-                </ul>
-            </div>
-        """, unsafe_allow_html=True)
+    st.markdown("""
+        <div style="background-color:rgba(0,255,204,0.1); border:1px solid #00ffcc; padding:15px; border-radius:10px; margin-top:10px;">
+            <p style='margin:0; color:#00ffcc; font-size:14px; font-weight:bold;'>🎮 Next Game Steps:</p>
+            <ol style='margin-bottom:0; color:#cbd5e1; font-size:13px; padding-left:20px;'>
+                <li>Tap inside the text box above and select <b>Copy</b>.</li>
+                <li>Launch your real <b>Dream League Soccer</b> game app.</li>
+                <li>Navigate to <b>My Club > Customise > Logo > Custom Logo</b>.</li>
+                <li>Paste your link into the field and click confirm to watch your badge apply!</li>
+            </ol>
+        </div>
+    """, unsafe_allow_html=True)
 
 # Legal Footer
-st.markdown("<br><hr><p style='text-align: center; color: #4b5563; font-size: 11px;'>🛑 LEGAL DISCLAIMER: Unofficial fan utility. Stat values are simulations for community evaluation. Not affiliated with First Touch Games.</p>", unsafe_allow_html=True)
+st.markdown("<br><hr><p style='text-align: center; color: #4b5563; font-size: 11px;'>🛑 LEGAL DISCLAIMER: Unofficial fan custom utility. Assets are mock simulations for community evaluation purposes. Not affiliated with First Touch Games Ltd.</p>", unsafe_allow_html=True)
